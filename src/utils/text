@@ -1,0 +1,119 @@
+// Text Generation Logic
+
+import { VIBES, LOREM_IPSUM_SENTENCES } from '../data/vibes.js';
+
+/**
+ * Shuffle array using Fisher-Yates algorithm
+ */
+function shuffle(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+/**
+ * Get random item from array
+ */
+function getRandom(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+/**
+ * Generate chaotic text based on vibe and chaos level
+ * @param {string} vibeKey - The selected vibe (e.g., 'labubu-pistachio')
+ * @param {number} paragraphCount - Number of paragraphs (1-10)
+ * @param {number} chaosLevel - Chaos intensity (1-10)
+ */
+export function generateChaosText(vibeKey, paragraphCount, chaosLevel) {
+  const vibe = VIBES[vibeKey];
+  if (!vibe) return 'Error: Invalid vibe selected.';
+  
+  const paragraphs = [];
+  
+  for (let i = 0; i < paragraphCount; i++) {
+    const sentencesPerParagraph = Math.floor(3 + (chaosLevel / 2)); // 3-8 sentences
+    const sentences = [];
+
+    // Shuffle fragments for variety
+    const shuffledFragments = shuffle(vibe.fragments);
+
+    for (let j = 0; j < sentencesPerParagraph; j++) {
+      // Mix in standard Lorem Ipsum ~30-40% of the time
+      let sentence;
+      if (Math.random() < 0.35) {
+        sentence = getRandom(LOREM_IPSUM_SENTENCES);
+      } else {
+        sentence = shuffledFragments[j % shuffledFragments.length];
+      }
+      
+      // Apply chaos modifiers
+      if (chaosLevel >= 7) {
+        // High chaos: random capitalization, multiple punctuation
+        if (Math.random() > 0.5) {
+          sentence = sentence.toUpperCase();
+        }
+        if (Math.random() > 0.6) {
+          sentence = sentence + '!!';
+        }
+        if (Math.random() > 0.7) {
+          sentence = sentence + '???';
+        }
+      }
+      
+      if (chaosLevel >= 9) {
+        // Maximum chaos: add emoji spam
+        const chaosEmojis = ['🔥', '💀', '😭', '✨', '🤪', '👁️', '🧠'];
+        if (Math.random() > 0.5) {
+          sentence = sentence + ' ' + getRandom(chaosEmojis).repeat(Math.floor(Math.random() * 3) + 1);
+        }
+      }
+      
+      sentences.push(sentence);
+    }
+    
+    paragraphs.push(sentences.join(' '));
+  }
+  
+  return paragraphs.join('\n\n');
+}
+
+/**
+ * Generate clean Lorem Ipsum text
+ * @param {number} paragraphCount - Number of paragraphs (1-10)
+ */
+export function generateCleanText(paragraphCount) {
+  const paragraphs = [];
+  
+  for (let i = 0; i < paragraphCount; i++) {
+    const sentencesPerParagraph = 4 + Math.floor(Math.random() * 3); // 4-6 sentences
+    const sentences = [];
+    
+    for (let j = 0; j < sentencesPerParagraph; j++) {
+      sentences.push(getRandom(LOREM_IPSUM_SENTENCES));
+    }
+    
+    paragraphs.push(sentences.join(' '));
+  }
+  
+  return paragraphs.join('\n\n');
+}
+
+/**
+ * Generate surprise text with random settings
+ */
+export function generateSurpriseText() {
+  const vibeKeys = Object.keys(VIBES);
+  const randomVibe = getRandom(vibeKeys);
+  const randomParagraphs = Math.floor(Math.random() * 8) + 2; // 2-10
+  const randomChaos = Math.floor(Math.random() * 10) + 1; // 1-10
+  
+  return {
+    text: generateChaosText(randomVibe, randomParagraphs, randomChaos),
+    vibe: randomVibe,
+    paragraphs: randomParagraphs,
+    chaos: randomChaos
+  };
+}
