@@ -3,8 +3,6 @@ import './App.css'
 import { generateChaosText, generateCleanText, generateSurpriseText } from './utils/text'
 import chaosLogo from './assets/BuBU_20260210_190336_0000.svg'
 import cleanLogo from './assets/cleanLogo.svg'
-import MetaballsBackground from './components/MetaballsBackground'
-
 function App() {
   const [isCleanMode, setIsCleanMode] = useState(false)
   const [selectedVibe, setSelectedVibe] = useState('labubu-pistachio')
@@ -72,7 +70,6 @@ function App() {
 
   return (
     <div className={`app ${isCleanMode ? 'clean-mode' : 'chaos-mode'}`}>
-      {!isCleanMode && <MetaballsBackground />}
 <div className="content-container">
         {/* Left Column - Logo + Controls */}
         <div className="left-column">
