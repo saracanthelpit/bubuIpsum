@@ -73,9 +73,7 @@ function App() {
   return (
     <div className={`app ${isCleanMode ? 'clean-mode' : 'chaos-mode'}`}>
       {!isCleanMode && <MetaballsBackground />}
-      <button className="back-button">← BACK</button>
-
-      <div className="content-container">
+<div className="content-container">
         {/* Left Column - Logo + Controls */}
         <div className="left-column">
           <div className="logo-container">

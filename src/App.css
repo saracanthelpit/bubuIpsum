@@ -98,29 +98,6 @@
   background: #f8f9fa;
 }
 
-/* Back Button */
-.back-button {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.chaos-mode .back-button {
-  background: #000;
-  color: #ff10f0;
-  border: 3px solid #ff10f0;
-}
-
-.clean-mode .back-button {
-  background: white;
-  color: #333;
-}
-
 
 /* Toggle */
 .toggle-container {
@@ -576,8 +553,4 @@ button {
     padding: 1rem;
   }
 
-  .back-button {
-    position: static;
-    margin-bottom: 1rem;
-  }
 }
