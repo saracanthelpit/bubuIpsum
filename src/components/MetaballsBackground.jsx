@@ -1,23 +1,6 @@
-import { useState, useEffect } from 'react'
 import { Metaballs } from '@paper-design/shaders-react'
 
 function MetaballsBackground() {
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
-
-  useEffect(() => {
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   return (
     <div
       aria-hidden="true"
@@ -32,13 +15,11 @@ function MetaballsBackground() {
       }}
     >
       <Metaballs
-        width={dimensions.width}
-        height={dimensions.height}
         colors={['#ff10f0', '#ccff00', '#00ffff']}
         colorBack="#00000000"
         count={4}
         size={0.85}
-        speed={0.5}
+        speed={1}
         offsetX={-0.5}
         webGlContextAttributes={{ alpha: true, premultipliedAlpha: false }}
       />
